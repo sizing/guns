@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.FzMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.Fz">
+        <id column="ID_FZ" property="idFz" />
+        <result column="NO_FZ" property="noFz" />
+        <result column="PNAME_FZ" property="pnameFz" />
+        <result column="NAME_FZ" property="nameFz" />
+        <result column="BELONG_FZ" property="belongFz" />
+        <result column="PAK_FZ" property="pakFz" />
+        <result column="ZCOUNT_FZ" property="zcountFz" />
+        <result column="NET_WORK_FZ" property="netWorkFz" />
+        <result column="LEASING_FZ" property="leasingFz" />
+        <result column="COST_FZ" property="costFz" />
+        <result column="PHONE_FZ" property="phoneFz" />
+        <result column="TYPE_FZ" property="typeFz" />
+        <result column="CHECK_FZ" property="checkFz" />
+        <result column="MERCHANT_FZ" property="merchantFz" />
+        <result column="TRADITIONAL_FZ" property="traditionalFz" />
+        <result column="CITIC_FZ" property="citicFz" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+ <!--   <sql id="Base_Column_List">
+        ID_FZ AS idFz, NO_FZ AS noFz, PNAME_FZ AS pnameFz, NAME_FZ AS nameFz, BELONG_FZ AS belongFz, PAK_FZ AS pakFz, ZCOUNT_FZ AS zcountFz, NET_WORK_FZ AS netWorkFz, LEASING_FZ AS leasingFz, COST_FZ AS costFz, PHONE_FZ AS phoneFz, TYPE_FZ AS typeFz, CHECK_FZ AS checkFz, MERCHANT_FZ AS merchantFz, TRADITIONAL_FZ AS traditionalFz, CITIC_FZ AS citicFz
+    </sql>-->
+
+
+    <select id="getFzSerch" resultType="map">
+        select * from sys_fz where 1 = 1
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (CHECK_FZ between CONCAT(STR_TO_DATE(#{beginTime},"%Y-%m-%d"),' 00-00-00') and CONCAT(STR_TO_DATE(#{endTime},"%Y-%m-%d"),' 23:59:59'))
+        </if>
+        <if test="pnameFz != null and pnameFz !=''">
+            and PNAME_FZ like CONCAT('%',#{pnameFz},'%')
+        </if>
+        <if test="nameFz != null and nameFz !=''">
+            and NAME_FZ like CONCAT('%',#{nameFz},'%')
+        </if>
+        <if test="pakFz != null and pakFz !=''">
+            and PAK_FZ like CONCAT('%',#{pakFz},'%')
+        </if>
+        <if test="traditionalFz != null and traditionalFz !=''">
+        and TRADITIONAL_FZ like CONCAT('%',#{traditionalFz},'%')
+    </if>
+        <choose>
+            <when test="orderByField != null and orderByField !=''">
+                <choose>
+                    <when test="isAsc == true">
+                        order by ${orderByField} ASC
+                    </when>
+                    <otherwise>
+                        order by ${orderByField} DESC
+                    </otherwise>
+                </choose>
+            </when>
+            <otherwise>
+                order by ID_FZ ASC
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <select id="getFzSerchAll" resultType="map">
+        SELECT *  from   sys_fz f LEFT JOIN   sys_ck  c on f.ID_FZ=c.fz_id  LEFT JOIN sys_finance sf ON  sf.fid=f.ID_FZ  where  1=1
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (CHECK_FZ between CONCAT(STR_TO_DATE(#{beginTime},"%Y-%m-%d"),' 00-00-00') and CONCAT(STR_TO_DATE(#{endTime},"%Y-%m-%d"),' 23:59:59'))
+        </if>
+        <if test="pnameFz != null and pnameFz !=''">
+            and PNAME_FZ like CONCAT('%',#{pnameFz},'%')
+        </if>
+        <if test="nameFz != null and nameFz !=''">
+            and NAME_FZ like CONCAT('%',#{nameFz},'%')
+        </if>
+        <if test="pakFz != null and pakFz !=''">
+            and PAK_FZ like CONCAT('%',#{pakFz},'%')
+        </if>
+        <if test="traditionalFz != null and traditionalFz !=''">
+            and TRADITIONAL_FZ like CONCAT('%',#{traditionalFz},'%')
+        </if>
+
+    </select>
+
+
+<select id="selectAll" resultType="map">
+select * from  sys_fz fz,sys_ck ck,sys_finance fn where  fz.ID_FZ=ck.fz_id and fn.fid=fz.ID_FZ
+</select>
+
+    <select id="selectByGetZd" resultMap="BaseResultMap" >
+        select *  from  sys_fz  where  TRADITIONAL_FZ=#{traditionalFz}
+    </select>
+
+
+
+    <select id="getFzSerchAll_fileOut" resultType="map">
+        select * from sys_fz  WHERE  1=1
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (CHECK_FZ between CONCAT(STR_TO_DATE(#{beginTime},"%Y-%m-%d"),' 00-00-00') and CONCAT(STR_TO_DATE(#{endTime},"%Y-%m-%d"),' 23:59:59'))
+        </if>
+        <if test="pnameFz != null and pnameFz !=''">
+            and PNAME_FZ like CONCAT('%',#{pnameFz},'%')
+        </if>
+        <if test="nameFz != null and nameFz !=''">
+            and NAME_FZ like CONCAT('%',#{nameFz},'%')
+        </if>
+        <if test="pakFz != null and pakFz !=''">
+            and PAK_FZ like CONCAT('%',#{pakFz},'%')
+        </if>
+        <if test="traditionalFz != null and traditionalFz !=''">
+            and TRADITIONAL_FZ= #{traditionalFz}
+        </if>
+
+    </select>
+</mapper>

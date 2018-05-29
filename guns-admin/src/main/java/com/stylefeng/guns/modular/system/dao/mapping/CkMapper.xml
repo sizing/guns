@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.CkMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.Ck">
+        <id column="id" property="id" />
+        <result column="c_name" property="cName" />
+        <result column="c_time" property="cTime" />
+        <result column="c_model" property="cModel" />
+        <result column="c_bill_type" property="cBillType" />
+        <result column="c_duty_no" property="cDutyNo" />
+        <result column="c_no" property="cNo" />
+        <result column="c_addre" property="cAddre" />
+        <result column="c_phone" property="cPhone" />
+        <result column="c_bank" property="cBank" />
+        <result column="fz_id" property="fzId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <select id="getFzSerch" resultType="map">
+        select  fz.CITIC_FZ , fz.TRADITIONAL_FZ,fz.PNAME_FZ,fz.LEASING_FZ,fz.PHONE_FZ,fz.COST_FZ,fz.COST_FZ,fz.NET_WORK_FZ,fz.CHECK_FZ,ck.id,ck.c_addre,ck.c_bank,ck.c_bill_type,ck.c_duty_no,ck.c_model,ck.c_name,ck.c_no,ck.c_phone,ck.fz_id,ck.c_time from  sys_fz fz,sys_ck ck WHERE ck.fz_id=fz.ID_FZ
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (fz.CHECK_FZ between CONCAT(STR_TO_DATE(#{beginTime},"%Y-%m-%d"),' 00-00-00') and CONCAT(STR_TO_DATE(#{endTime},"%Y-%m-%d"),' 23:59:59'))
+        </if>
+        <if test="pnameFz != null and pnameFz !=''">
+            and fz.PNAME_FZ like CONCAT('%',#{pnameFz},'%')
+        </if>
+
+
+        <if test="citicFz != null and citicFz !=''">
+            and fz.CITIC_FZ like CONCAT('%',#{citicFz},'%')
+        </if>
+        <if test="traditionalFz != null and traditionalFz !=''">
+            and fz.TRADITIONAL_FZ like CONCAT('%',#{traditionalFz},'%')
+        </if>
+        <choose>
+            <when test="orderByField != null and orderByField !=''">
+                <choose>
+                    <when test="isAsc == true">
+                        order by ${orderByField} ASC
+                    </when>
+                    <otherwise>
+                        order by ${orderByField} DESC
+                    </otherwise>
+                </choose>
+            </when>
+            <otherwise>
+                order by ck.id ASC
+            </otherwise>
+        </choose>
+    </select>
+    <select id="selectByzd" resultMap="BaseResultMap">
+             SELECT  * from  sys_ck where  fz_id=#{fzid}
+    </select>
+
+
+
+    <select id="getFzSerchAll" resultType="map">
+        select * from sys_fz RIGHT  JOIN  sys_ck c on  ID_FZ=c.fz_id  WHERE  1=1
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (CHECK_FZ between CONCAT(STR_TO_DATE(#{beginTime},"%Y-%m-%d"),' 00-00-00') and CONCAT(STR_TO_DATE(#{endTime},"%Y-%m-%d"),' 23:59:59'))
+        </if>
+        <if test="pnameFz != null and pnameFz !=''">
+            and PNAME_FZ like CONCAT('%',#{pnameFz},'%')
+        </if>
+        <if test="traditionalFz != null and traditionalFz !=''">
+            and TRADITIONAL_FZ like CONCAT('%',#{traditionalFz},'%')
+        </if>
+
+            order by c.id ASC
+
+    </select>
+
+</mapper>

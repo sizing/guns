@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.modular.system.dao.FinanceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.modular.system.model.Finance">
+        <id column="id" property="id" />
+        <result column="fname_no" property="fnameNo" />
+        <result column="jkno" property="jkno" />
+        <result column="fmarket_money" property="fmarketMoney" />
+        <result column="fno" property="fno" />
+        <result column="fmoney" property="fmoney" />
+        <result column="ftime" property="ftime" />
+        <result column="ftype" property="ftype" />
+        <result column="fphone_money" property="fphoneMoney" />
+        <result column="ismake" property="ismake" />
+        <result column="isbill" property="isbill" />
+        <result column="fid" property="fid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <select id="getFzSerch" resultType="map">
+        select   fz.TRADITIONAL_FZ,fz.PNAME_FZ,fz.LEASING_FZ,fz.PHONE_FZ,fz.COST_FZ,fz.COST_FZ,fz.NET_WORK_FZ,fz.CHECK_FZ ,fn.fname_no,fn.jkno,fn.fmarket_money,fn.fno,fn.fmoney,fn.ftime,fn.ftype ,fn.fphone_money ,fn.ismake ,fn.isbill,fn.fid ,fn.id from  sys_fz fz,sys_finance fn WHERE fn.fid=fz.ID_FZ
+
+        <if test="pnameFz != null and pnameFz !=''">
+            and fz.PNAME_FZ like CONCAT('%',#{pnameFz},'%')
+        </if>
+
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (fz.CHECK_FZ between CONCAT(STR_TO_DATE(#{beginTime},"%Y-%m-%d"),' 00-00-00') and CONCAT(STR_TO_DATE(#{endTime},"%Y-%m-%d"),' 23:59:59'))
+        </if>
+        <if test="traditionalFz != null and traditionalFz !=''">
+            and fz.TRADITIONAL_FZ like CONCAT('%',#{traditionalFz},'%')
+        </if>
+        <choose>
+            <when test="orderByField != null and orderByField !=''">
+                <choose>
+                    <when test="isAsc == true">
+                        order by ${orderByField} ASC
+                    </when>
+                    <otherwise>
+                        order by ${orderByField} DESC
+                    </otherwise>
+                </choose>
+            </when>
+            <otherwise>
+                order by fn.id ASC
+            </otherwise>
+        </choose>
+    </select>
+
+
+
+
+    <select id="selectAll" resultType="map">
+        select * from sys_fz RIGHT  JOIN  sys_ck c on  ID_FZ=c.fz_id  WHERE  1=1
+        <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
+            and (CHECK_FZ between CONCAT(STR_TO_DATE(#{beginTime},"%Y-%m-%d"),' 00-00-00') and CONCAT(STR_TO_DATE(#{endTime},"%Y-%m-%d"),' 23:59:59'))
+        </if>
+        <if test="pnameFz != null and pnameFz !=''">
+            and PNAME_FZ like CONCAT('%',#{pnameFz},'%')
+        </if>
+        <if test="traditionalFz != null and traditionalFz !=''">
+            and TRADITIONAL_FZ like CONCAT('%',#{traditionalFz},'%')
+        </if>
+
+        order by c.id ASC
+
+    </select>
+
+    <select id="selectByzd" resultMap="BaseResultMap">
+         SELECT  * from  sys_finance where  fid=#{fzid}
+    </select>
+</mapper>

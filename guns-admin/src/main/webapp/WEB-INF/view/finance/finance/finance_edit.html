@@ -1,0 +1,77 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <#input id="id" name="id" value="${item.id}" underline="true"/>
+                    <#input id="fnameNo" name="缴款人员" value="${item.fnameNo}" underline="true"/>
+                    <#input id="jkno" name="缴款单号" value="${item.jkno}" underline="true"/>
+                    <#input id="fmarketMoney" name="销售款" value="${item.fmarketMoney}" underline="true"/>
+                    <#input id="fno" name="票据编号" value="${item.fno}" underline="true"/>
+                    <#input id="fmoney" name="押金" value="${item.fmoney}" />
+                </div>
+
+                <div class="col-sm-6">
+                    <#input id="ftime" name="缴款日期" value="${item.ftime}" underline="true"/>
+
+                    <#select id="ftype" name="收款方式">
+                    <option value="1">pos机</option>
+                    <option value="2">支付宝</option>
+                    <option value="3">微信</option>
+                </#select>
+                <#input id="fphoneMoney" name="通讯费" value="${item.fphoneMoney}" underline="true"/>
+
+                <#select id="ismake" name="是否缴款">
+                <option value="1">是</option>
+                <option value="0">否</option>
+            </#select>
+            <#select id="isbill" name="是否开票">
+            <option value="1">是</option>
+            <option value="0">否</option>
+        </#select>
+
+        <#input id="fid" name="分账id" value="${item.fid}" />
+    </div>
+</div>
+
+<div class="row btn-group-m-t">
+    <div class="col-sm-10">
+        <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FinanceInfoDlg.editSubmit()"/>
+        <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FinanceInfoDlg.close()"/>
+    </div>
+</div>
+<div class="row btn-group-m-t">
+    <div class="col-sm-10">
+        <table class="table table-hover" style="color: #1ab394">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>商户名称</th>
+                <th>租赁金额</th>
+                <th>通讯费</th>
+                <th>终端购买费</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>${fz.idFz}</td>
+                <td>${fz.pnameFz}</td>
+                <td>${fz.leasingFz}</td>
+                <td>${fz.phoneFz}</td>
+                <td>${fz.costFz}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+<script src="${ctxPath}/static/modular/finance/finance/finance_info.js"></script>
+@}

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_guns-parent" default="compile.module.guns-parent">
+  <dirname property="module.guns-parent.basedir" file="${ant.file.module_guns-parent}"/>
+  
+  <property name="module.jdk.home.guns-parent" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.guns-parent" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.guns-parent" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.guns-parent" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="guns-parent.output.dir" value="${module.guns-parent.basedir}/target/classes"/>
+  <property name="guns-parent.testoutput.dir" value="${module.guns-parent.basedir}/target/test-classes"/>
+  
+  <path id="guns-parent.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="guns-parent.module.production.classpath">
+    <path refid="${module.jdk.classpath.guns-parent}"/>
+  </path>
+  
+  <path id="guns-parent.runtime.production.module.classpath">
+    <pathelement location="${guns-parent.output.dir}"/>
+  </path>
+  
+  <path id="guns-parent.module.classpath">
+    <path refid="${module.jdk.classpath.guns-parent}"/>
+    <pathelement location="${guns-parent.output.dir}"/>
+  </path>
+  
+  <path id="guns-parent.runtime.module.classpath">
+    <pathelement location="${guns-parent.testoutput.dir}"/>
+    <pathelement location="${guns-parent.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.guns-parent">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.guns-parent">
+    <patternset refid="excluded.from.module.guns-parent"/>
+  </patternset>
+  
+  <path id="guns-parent.module.sourcepath">
+    <dirset dir="${module.guns-parent.basedir}">
+      <include name="src/main/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.guns-parent" depends="compile.module.guns-parent.production,compile.module.guns-parent.tests" description="Compile module guns-parent"/>
+  
+  <target name="compile.module.guns-parent.production" depends="register.custom.compilers" description="Compile module guns-parent; production classes">
+    <mkdir dir="${guns-parent.output.dir}"/>
+    <javac2 destdir="${guns-parent.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.guns-parent}/javac">
+      <compilerarg line="${compiler.args.guns-parent}"/>
+      <bootclasspath refid="guns-parent.module.bootclasspath"/>
+      <classpath refid="guns-parent.module.production.classpath"/>
+      <src refid="guns-parent.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.guns-parent"/>
+    </javac2>
+    
+    <copy todir="${guns-parent.output.dir}">
+      <fileset dir="${module.guns-parent.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.guns-parent.tests" depends="register.custom.compilers,compile.module.guns-parent.production" description="compile module guns-parent; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.guns-parent" description="cleanup module">
+    <delete dir="${guns-parent.output.dir}"/>
+    <delete dir="${guns-parent.testoutput.dir}"/>
+  </target>
+</project>

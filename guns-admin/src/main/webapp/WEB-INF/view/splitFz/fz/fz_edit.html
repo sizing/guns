@@ -1,0 +1,43 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="idFz" value="${item.idFz}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="idFz" name="id" value="${item.idFz}" underline="true"/>
+                            <#input id="noFz" name="编号" value="${item.noFz}" underline="true"/>
+                            <#input id="pnameFz" name="商户名称" value="${item.pnameFz}" underline="true"/>
+                            <#input id="nameFz" name="发展人" value="${item.nameFz}" underline="true"/>
+                            <#input id="belongFz" name="所属" value="${item.belongFz}" underline="true"/>
+                            <#input id="pakFz" name="商户简称" value="${item.pakFz}" underline="true"/>
+                            <#input id="zcountFz" name="终端数量" value="${item.zcountFz}" underline="true"/>
+                            <#input id="netWorkFz" name="入网模式" value="${item.netWorkFz}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="leasingFz" name="租赁金额" value="${item.leasingFz}" underline="true"/>
+                            <#input id="costFz" name="终端购买费" value="${item.costFz}" underline="true"/>
+                            <#input id="phoneFz" name="通讯费" value="${item.phoneFz}" underline="true"/>
+                            <#input id="typeFz" name="机型" value="${item.typeFz}" underline="true"/>
+                            <#input id="checkFz" name="提交审核时间" value="${item.checkFz}" underline="true"/>
+                            <#input id="merchantFz" name="商户编号" value="${item.merchantFz}" underline="true"/>
+                            <#input id="traditionalFz" name="传统终端号" value="${item.traditionalFz}" underline="true"/>
+                            <#input id="citicFz" name="中信终端号" value="${item.citicFz}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FzInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FzInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/splitFz/fz/fz_info.js"></script>
+@}

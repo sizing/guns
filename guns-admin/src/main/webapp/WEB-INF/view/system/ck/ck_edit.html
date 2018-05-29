@@ -1,0 +1,55 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+            <input type="hidden" value="${item.cBillType}" id="c">
+            <script>
+                $(function() {
+                    if($("#c").val() == undefined){
+                        $("#cBillType").val(0);
+                    }else{
+                        $("#cBillType").val($("#c").val());
+                    }
+                });
+
+            </script>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="id" value="${item.id}" underline="true"/>
+                            <#input id="cName" name="出库人" value="${item.cName}" underline="true"/>
+                            <#input id="cTime" name="出库时间" value="${item.cTime}" underline="true"/>
+                            <#input id="cModel" name="出库机型" value="${item.cModel}" underline="true"/>
+                    <#select id="cBillType" name="开票类型">
+                    <option value="1">收据</option>
+                    <option value="2">普票</option>
+                    <option value="3">专票</option>
+                     </#select>
+
+                            <#input id="cDutyNo" name="税号" value="${item.cDutyNo}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="cNo" name="账号" value="${item.cNo}" underline="true"/>
+                            <#input id="cAddre" name="地址" value="${item.cAddre}" underline="true"/>
+                            <#input id="cPhone" name="电话" value="${item.cPhone}" underline="true"/>
+                            <#input id="cBank" name="开户行" value="${item.cBank}" underline="true"/>
+                            <#input id="fzId" name="分账id" value="${item.fzId}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CkInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CkInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="${ctxPath}/static/modular/system/ck/ck_info.js"></script>
+@}

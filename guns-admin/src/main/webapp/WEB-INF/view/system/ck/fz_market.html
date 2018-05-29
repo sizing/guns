@@ -1,0 +1,106 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins" xmlns="http://www.w3.org/1999/html">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <#input  id="fzId" name="fzid" underline="true"/>
+                    <#input id="cName" name="出库人" underline="true"/>
+
+                    <#TimeCon id="cTime" name="出库时间" isTime="false" pattern="YYYY-MM-DD"/>
+                </div>
+
+                <div class="col-sm-6">
+                    <p style="position:relative;">
+                        <select style="width:120px;" onchange="document.getElementById('cModel').value=this.value" class="btn btn-primary button-margin" >
+                            <i class="fa fa-edit"></i>
+                            <option>出库机型</option>
+                            <option>A8</option>
+                            <option>E350TB</option>
+                            <option>E330PA</option>
+                            <option>E330PQE</option>
+                            <option>E330PH</option>
+                            <option>E330PQH</option>
+                            <option>E550B</option>
+                            <option>E550QB</option>
+                            <option>K320A</option>
+                            <option>N5</option>
+                            <option>ME31S/CST/G/RF-A</option>
+                            <option>SP50/CST/RF</option>
+                            <option>ME31/G/RF</option>
+                            <option>NL-8080Y-G</option>
+                            <option>NL-8080Y-ETH</option>
+                            <option>SP60</option>
+                            <option>NL-GP730</option>
+                            <option>ME31/G</option>
+                            <option>NEW7210-NFC</option>
+                            <option>P58</option>
+                            <option>S58-M00</option>
+                            <option>S78-M0L(RF)</option>
+                            <option>S58-M0L（RF Q）</option>
+                            <option>S58-M0L（RF）</option>
+                            <option>S90-0G0(RF)</option>
+                            <option>P78</option>
+                            <option>P80</option>
+                            <option>A920（WIFI+4G）</option>
+                            <option>V8（WIFI）</option>
+                            <option>V8（WIFI+3G）</option>
+                            <option>V8（WIFI+4G）</option>
+                            <option>Q50</option>
+                            <option>HI98</option>
+                        </select>
+                        <input  name="input" style="position:absolute;width:120px;height:30px;left:150px;top:0px;border:1px solid #1ab394" id="cModel">
+                    </p>
+
+                    <select  class="btn btn-primary button-margin" id="cBillType"><i class="fa fa-edit"></i>&nbsp;<option>发票类型</option>  <option name="1" value="1">收据</option> <option name="2" value="2">普票</option> <option name="3" value="3">专票</option> </select>
+
+                    <div id="p_shui" style="display: none">
+                        <#input id="cDutyNo" name="税号" underline="true"/>
+                    </div>
+                    <div id="p_only" style="display: none">
+                        <#input id="cDutyNo" name="税号" underline="true"/>
+                        <#input id="cNo" name="账号" underline="true"/>
+                        <#input id="cAddre" name="地址" underline="true"/>
+                        <#input id="cPhone" name="电话" underline="true"/>
+                        <#input id="cBank" name="开户行" underline="true"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CkInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CkInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+
+    $(function () {
+
+        $("#cBillType").on( "click",function () {
+            if($(this).val()==1){
+                $("#p_only").css("display","none")
+                $("#p_shui").css("display","none")
+
+            }
+            if ($(this).val()==2){
+                $("#p_only").css("display","none")
+              $("#p_shui").css("display","block")
+            }
+            if($(this).val()==3){
+                $("#p_shui").css("display","none")
+                $("#p_only").css("display","block")
+            }
+        })
+    });
+
+</script>
+<script src="${ctxPath}/static/modular/splitFz/fz/fz_market.js"></script>
+@}

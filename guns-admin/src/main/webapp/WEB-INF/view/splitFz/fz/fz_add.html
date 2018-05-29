@@ -1,0 +1,43 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="idFz" name="主键id" underline="true"/>
+                            <#input id="noFz" name="编号" underline="true"/>
+                            <#input id="pnameFz" name="商户名称" underline="true"/>
+                            <#input id="nameFz" name="发展人" underline="true"/>
+                            <#input id="belongFz" name="所属" underline="true"/>
+                            <#input id="pakFz" name="商户简称" underline="true"/>
+                            <#input id="zcountFz" name="终端数量" underline="true"/>
+                            <#input id="netWorkFz" name="入网模式"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="leasingFz" name="租赁金额" underline="true"/>
+                            <#input id="costFz" name="终端购买费" underline="true"/>
+                            <#input id="phoneFz" name="通讯费" underline="true"/>
+                            <#input id="typeFz" name="机型" underline="true"/>
+                            <#input id="checkFz" name="提交审核时间" underline="true"/>
+                            <#input id="merchantFz" name="商户编号" underline="true"/>
+                            <#input id="traditionalFz" name="传统终端号" underline="true"/>
+                            <#input id="citicFz" name="中信终端号" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FzInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FzInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/splitFz/fz/fz_info.js"></script>
+@}
