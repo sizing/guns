@@ -19,7 +19,7 @@ public class UserTest extends BaseJunit {
 
     @Test
     public void userTest() throws Exception {
-
+        System.out.println(11);
     }
 
 }
